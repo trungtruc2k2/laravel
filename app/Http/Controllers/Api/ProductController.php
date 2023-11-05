@@ -129,30 +129,30 @@ class ProductController extends Controller
     }
     public function product_home($limit, $category_id)
     {
-        $listid = array();
-        array_push($listid, $category_id);
-        $args_cat1 = [
-            ['parent_id', '=', $category_id],
-            ['status', '=', 1]
-        ];
-        $list_category1 = Product::where($args_cat1)->get();
-        if (count($list_category1) > 0) {
-            foreach ($list_category1 as $row1) {
-                array_push($listid, $row1->id);
-                $args_cat2 = [
-                    ['parent_id', '=', $row1->id],
-                    ['status', '=', 1]
-                ];
-                $list_category2 = Product::where($args_cat2)->get();
-                if (count($list_category2) > 0) {
-                    foreach ($list_category2 as $row2) {
-                        array_push($listid, $row2->id);
-                    }
-                }
-            }
-        }
+        // $listid = array();
+        // array_push($listid, $category_id);
+        // $args_cat1 = [
+        //     ['parent_id', '=', $category_id],
+        //     ['status', '=', 1]
+        // ];
+        // $list_category1 = Product::where($args_cat1)->get();
+        // if (count($list_category1) > 0) {
+        //     foreach ($list_category1 as $row1) {
+        //         array_push($listid, $row1->id);
+        //         $args_cat2 = [
+        //             ['parent_id', '=', $row1->id],
+        //             ['status', '=', 1]
+        //         ];
+        //         $list_category2 = Product::where($args_cat2)->get();
+        //         if (count($list_category2) > 0) {
+        //             foreach ($list_category2 as $row2) {
+        //                 array_push($listid, $row2->id);
+        //             }
+        //         }
+        //     }
+        // }
         $products = Product::where('status', 1)
-            ->whereIn('category_id', $listid)
+            ->where('category_id', $category_id)
             ->orderBy('created_at', 'DESC')
             ->limit($limit)
             ->get();
@@ -267,5 +267,4 @@ class ProductController extends Controller
             200
         );
     }
-
 }

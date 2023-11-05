@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Order;
+use App\Models\Orderdetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class OrderController extends Controller
+class OrderDetailController extends Controller
 {
     /*lay danh sach*/
     public function index()
     {
-        $order = Order::all();
+        $order = Orderdetail::all();
         return response()->json(['success' => true, 'message' => "Tải dữ liệu thành công", 'order' => $order], 200);
     }
 
     /*lay bang id -> chi tiet */
     public function show($id)
     {
-        $order = Order::find($id);
+        $order = Orderdetail::find($id);
         return response()->json(['success' => true, 'message' => "Tải dữ liệu thành công", 'order' => $order], 200);
     }
 
     /* them */
     public function store(Request $request)
     {
-        $order = new Order();
+        $order = new Orderdetail();
         $order->order_id = $request->order_id; //form
         $order->product_id = $request->product_id; //form
         $order->price = $request->price; //form
@@ -39,7 +39,7 @@ class OrderController extends Controller
     /*update*/
     public function update(Request $request, $id)
     {
-        $order = Order::find($id);
+        $order = Orderdetail::find($id);
         $order->order_id = $request->order_id; //form
         $order->product_id = $request->product_id; //form
         $order->price = $request->price; //form
@@ -53,7 +53,7 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $orderdetail = Orderdetail::find($id);
-        if($orderdetail == null){
+        if ($orderdetail == null) {
             return response()->json(['success' => true, 'message' => 'Xóa không thành công', 'orderdetail' => null], 200);
         }
         $orderdetail->delete();
@@ -67,7 +67,7 @@ class OrderController extends Controller
             ['order_id', '=', $order_id],
             ['status', '=', $status]
         ];
-        $data = Order::where($args)->orderBy('sort_order', 'ASC')->get();
+        $data = Orderdetail::where($args)->orderBy('sort_order', 'ASC')->get();
         return response()->json($data, 200);
     }
 }

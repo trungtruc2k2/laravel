@@ -9,6 +9,25 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    /** Xác thực đăng nhập */
+    public function authLogin(Request $request)
+    {
+        $credential = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+        $user = User::where('email', $credential['email'])->first();
+        if ($user) {
+        } else {
+            return response()->json([
+                'status' => 404,
+                'ok' => false,
+                'message' => 'Email không tồn tại',
+                'code' => 'MAIL_NOTFOUND'
+            ]);
+        }
+    }
+
     /*lay danh sach*/
     public function index()
     {
@@ -34,7 +53,7 @@ class UserController extends Controller
         $user->password = $request->password; //form
         $user->address = $request->address; //form
         //upload hình ảnh
-        $files=$request->image;
+        $files = $request->image;
         if ($files != null) {
             $extension = $files->getClientOriginalExtension();
             if (in_array($extension, ['jpg', 'png', 'gif', 'webp', 'jpeg'])) {
@@ -63,7 +82,7 @@ class UserController extends Controller
         $user->password = $request->password; //form
         $user->address = $request->address; //form
         //upload hình ảnh
-        $files=$request->image;
+        $files = $request->image;
         if ($files != null) {
             $extension = $files->getClientOriginalExtension();
             if (in_array($extension, ['jpg', 'png', 'gif', 'webp', 'jpeg'])) {
@@ -85,7 +104,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        if($user == null){
+        if ($user == null) {
             return response()->json(['success' => true, 'message' => 'Xóa không thành công', 'user' => null], 200);
         }
         $user->delete();
