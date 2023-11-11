@@ -103,3 +103,4 @@ Route::delete('post/destroy/{id}', [PostController::class, 'destroy']);
 
 // auth
 Route::post('auth/login', [UserController::class, 'authLogin']);
+Route::post('auth/register', [UserController::class, 'register']);
