@@ -100,6 +100,7 @@ Route::get('post/show/{id}', [PostController::class, 'show']);
 Route::post('post/store', [PostController::class, 'store']);
 Route::post('post/update/{id}', [PostController::class, 'update']);
 Route::delete('post/destroy/{id}', [PostController::class, 'destroy']);
+Route::get('post/{type}', [PostController::class, 'getPostsByType']);
 
 // auth
 Route::post('auth/login', [UserController::class, 'authLogin']);
