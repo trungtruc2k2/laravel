@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\OrderDetailController;
 use App\Http\Controllers\Api\TopicController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PostController;
@@ -76,6 +77,10 @@ Route::get('order/show/{id}', [OrderController::class, 'show']);
 Route::post('order/store', [OrderController::class, 'store']);
 Route::post('order/update/{id}', [OrderController::class, 'update']);
 Route::delete('order/destroy/{id}', [OrderController::class, 'destroy']);
+
+Route::get('order-detail/index', [OrderDetailController::class, 'index']);
+Route::post('order-detail/store', [OrderDetailController::class, 'store']);
+
 
 Route::get('slider/index', [SliderController::class, 'index']);
 Route::get('slider/show/{id}', [SliderController::class, 'show']);
